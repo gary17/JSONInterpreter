@@ -17,4 +17,4 @@ JSONInterpreter is a small, sample utility library based on Swift generics that 
 |         | File | Purpose |
 ----------|------|----------
 :octocat: | [JSONInterpreter.swift](JSONInterpreter.playground/Sources/JSONInterpreter.swift) | a sample utility library for interpretation of structured data
-:octocat: | [JSONInterpreter.playground](JSONInterpreter.playground) | a sample Xcode playground with usage samples
+:octocat: | [Contents.swift](JSONInterpreter.playground/Contents.swift) | a sample Xcode playground with usage samples
