@@ -87,8 +87,8 @@ let task = URLSession.shared.dataTask(with: request) { data, response, error in
 	{
 		// extract a JSON element of a particular type
 		
-		let _ = try JSONInterpreter.interpret("userId", in: root) as UInt
-		let _ = try JSONInterpreter.interpret("title", in: root) as String
+		_ = try JSONInterpreter.interpret("userId", in: root) as UInt
+		_ = try JSONInterpreter.interpret("title", in: root) as String
 	}
 	catch
 	{
@@ -120,7 +120,7 @@ let task = URLSession.shared.dataTask(with: request) { data, response, error in
 	{
 		// extract a JSON element with closure-based validation
 
-		let _ = try JSONInterpreter.interpret("id", in: root) { (value: UInt) in
+		_ = try JSONInterpreter.interpret("id", in: root) { (value: UInt) in
 			
 			// WARNING: returning nil induces JSONInterpreter.InterpretationError.unreadable(<key>)
 			(1 ... 99).contains(value) ? value : nil
@@ -139,7 +139,7 @@ let task = URLSession.shared.dataTask(with: request) { data, response, error in
 		if JSONInterpreter.have("thumb", in: root)
 		{
 			// WARNING: a failable initializer returning nil induces JSONInterpreter.InterpretationError.unreadable(<key>)
-			let _ = try JSONInterpreter.interpret("thumb", in: root) { (value: String) in URL(string: value) }
+			_ = try JSONInterpreter.interpret("thumb", in: root) { (value: String) in URL(string: value) }
 		}
 	}
 	catch
