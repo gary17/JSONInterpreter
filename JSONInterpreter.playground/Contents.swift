@@ -1,9 +1,4 @@
-import UIKit
-
-// "JSONPlaceholder is a free online REST API that you can use whenever you need some fake data."
-let endpointURL = "https://jsonplaceholder.typicode.com/todos/1"
-
-var request = URLRequest(url: URL(string: endpointURL)!)
+import Foundation
 
 enum Failure: Error, LocalizedError
 {
@@ -30,6 +25,10 @@ enum Failure: Error, LocalizedError
 	}
 }
 
+// "JSONPlaceholder is a free online REST API that you can use whenever you need some fake data."
+let endpointURL = "https://jsonplaceholder.typicode.com/todos/1"
+
+var request = URLRequest(url: URL(string: endpointURL)!)
 let task = URLSession.shared.dataTask(with: request) { data, response, error in
 	
 	guard error == nil else
