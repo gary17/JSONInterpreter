@@ -8,8 +8,7 @@
 
 import Foundation
 
-public enum /* namespace */ JSONInterpreter
-{
+public enum /* namespace */ JSONInterpreter {
 	// unit-of-storage abstractions
 	
 	public typealias Key = String 	// JSON keys are always strings
@@ -18,8 +17,7 @@ public enum /* namespace */ JSONInterpreter
 
 	// failure points
 
-	public enum InterpretationError: LocalizedError
-	{
+	public enum InterpretationError: LocalizedError {
 		case syntax(Error)
 		case malformed
 
@@ -27,10 +25,8 @@ public enum /* namespace */ JSONInterpreter
 		case wrongType(Key)
 		case unreadable(Key)
 		
-		public var errorDescription: String? // converts to .localizedDescription
-		{
-			switch self
-			{
+		public var errorDescription: String? { // converts to .localizedDescription
+			switch self {
 				// TODO: internationalization
 
 				case .syntax:
@@ -54,22 +50,19 @@ public enum /* namespace */ JSONInterpreter
 	// interpreters
 
 	public static func interpret<T>(
-		_ root: Any) throws -> T
-	{
+			_ root: Any) throws -> T {
 		guard let raw = root as? T else { throw InterpretationError.malformed }
 
 		return raw
 	}
 
 	public static func have(
-		_ key: JSONInterpreter.Key, in dictionary: JSONInterpreter.Dictionary) -> Bool
-	{
+			_ key: JSONInterpreter.Key, in dictionary: JSONInterpreter.Dictionary) -> Bool {
 		return dictionary[key] != nil
 	}
 	
 	public static func interpret<T>(
-		_ key: JSONInterpreter.Key, in dictionary: JSONInterpreter.Dictionary) throws -> T
-	{
+			_ key: JSONInterpreter.Key, in dictionary: JSONInterpreter.Dictionary) throws -> T {
 		guard let abstract = dictionary[key] else { throw InterpretationError.missing(key) }
 		guard let raw = abstract as? T else { throw InterpretationError.wrongType(key) }
 
@@ -82,9 +75,8 @@ public enum /* namespace */ JSONInterpreter
 	public typealias Converter<T, U> = (T) -> U?
 
 	public static func interpret<T, U>(
-		_ key: JSONInterpreter.Key, in dictionary: JSONInterpreter.Dictionary,
-			using converter: Converter<T, U>) throws -> U
-	{
+			_ key: JSONInterpreter.Key, in dictionary: JSONInterpreter.Dictionary,
+				using converter: Converter<T, U>) throws -> U {
 		let raw = try interpret(key, in: dictionary) as T
 		
 		// WARNING: returning nil from a converter induces JSONInterpreter.InterpretationError.unreadable(<key>)
